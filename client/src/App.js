@@ -11,6 +11,7 @@ import Write from "./pages/Write";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import './style.css'
 
 const Layout =()=>{
     return (
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
   },
  
 ]);
+
 
 
 function App() {
