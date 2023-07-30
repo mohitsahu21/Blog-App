@@ -11,7 +11,7 @@ export const AuthContexProvider = ({ children }) => {
   
  
   const login = async (inputs) => {
-    const res = await axios.post("/auth/login", inputs);
+    const res = await axios.post("https://blog-app-api-ygiz.onrender.com/auth/login", inputs);
     setCurrentUser(res.data);
     if(res.status == 200){
         return "ok"
@@ -24,7 +24,7 @@ export const AuthContexProvider = ({ children }) => {
   };
 
   const logout = async (inputs) => {
-    await axios.post("/auth/logout");
+    await axios.post("https://blog-app-api-ygiz.onrender.com/auth/logout");
     setCurrentUser(null);
     localStorage.removeItem("user")
 
