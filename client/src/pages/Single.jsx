@@ -28,7 +28,7 @@ const Single = () => {
     
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/posts/${postId}`);
+        const res = await axios.get(`https://blog-app-api-ygiz.onrender.com/posts/${postId}`);
         setPost(res.data);
       } catch (err) {
         console.log(err);
