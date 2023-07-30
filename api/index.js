@@ -11,9 +11,7 @@ import dotenv from "dotenv";
 dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 const app = express();
 app.use(cookieParser());
-app.use(cors({
-    origin: "https://blog-app-y464.onrender.com",
-}));
+app.use(cors());
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
