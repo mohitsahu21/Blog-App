@@ -5,6 +5,8 @@ import userRoutes from "./routes/users.js";
 import cookieParser from "cookie-parser";
 import multer from "multer";
 
+import dotenv from "dotenv";
+dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 const app = express();
 app.use(cookieParser());
 
@@ -34,6 +36,6 @@ app.use("/api/auth", authRoutes);
 
 
 
-app.listen(8800,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("server is running")
 })
