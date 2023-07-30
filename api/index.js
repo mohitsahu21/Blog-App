@@ -7,12 +7,13 @@ import multer from "multer";
 import cors from "cors";
 
 import dotenv from "dotenv";
-app.use(cors({
-    origin: "https://blog-app-y464.onrender.com",
-}));
+
 dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 const app = express();
 app.use(cookieParser());
+app.use(cors({
+    origin: "https://blog-app-y464.onrender.com",
+}));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
