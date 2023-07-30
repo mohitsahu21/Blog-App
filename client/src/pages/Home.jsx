@@ -1,45 +1,62 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link,useLocation } from 'react-router-dom';
+import axios from "axios";
 
 const Home = () => {
+  const [posts, setPosts] = useState([]);
 
-  const posts = [{
-    id:1,
-    title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
-    
-  },
-  {
-    id:2,
-    title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
-    
-  },
-  {
-    id:3,
-    title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
-    
-  },
-  {
-    id:4,
-    title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
-    
-  },
-  {
-    id:5,
-    title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+  const cat = useLocation().search
 
-    img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/posts${cat}`);
+        setPosts(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [cat]);
+//   const posts = [{
+//     id:1,
+//     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+//     img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
     
-  },
-];
+//   },
+//   {
+//     id:2,
+//     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+//     img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
+    
+//   },
+//   {
+//     id:3,
+//     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+//     img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
+    
+//   },
+//   {
+//     id:4,
+//     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+//     img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
+    
+//   },
+//   {
+//     id:5,
+//     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+//     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+
+//     img: "https://images.pexels.com/photos/768472/pexels-photo-768472.jpeg?auto=compress&cs=tinysrgb&w=600"
+    
+//   },
+// ];
   return (
     <div className='home'>
       <div className="posts">

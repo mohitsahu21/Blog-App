@@ -1,30 +1,55 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import Edit from '../images/edit.png';
 import Delete from '../images/delete.jpg'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import moment from "moment";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 
 const Single = () => {
+
+  const [post, setPost] = useState({});
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const postId = location.pathname.split("/")[2];
+
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`/posts/${postId}`);
+        setPost(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [postId]);
+
   return (
     <div className='single'>
       <div className="content">
-        <img src="https://images.pexels.com/photos/17636977/pexels-photo-17636977/free-photo-of-skyscrapers-in-new-york.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="image" />
+        <img src={post?.img} alt="image" />
         <div className="user">
           <img src="https://images.pexels.com/photos/17286100/pexels-photo-17286100/free-photo-of-sunlit-face-of-man-in-shirt.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="userimage" />
           <div className="info">
-            <span>john</span>
-            <p>Posted 2 days ago</p>
+            <span>{post.username}</span>
+            <p>Posted {moment(post.date).fromNow()}</p>
           </div>
-          <div className='edit'>
+          { currentUser.username === post.username &&<div className='edit'>
             <Link to={`/write?edit=2`}>
             <img src={Edit} alt="edit" />
             </Link>
             
             <img src={Delete} alt="delete" />
-          </div>
+          </div>}
         </div>
-        <h1>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h1>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-           It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <h1>{post.title}</h1>
+        {post.desc}
       </div>
       
     </div>
