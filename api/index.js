@@ -4,8 +4,12 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import cookieParser from "cookie-parser";
 import multer from "multer";
+import cors from "cors";
 
 import dotenv from "dotenv";
+app.use(cors({
+    origin: "https://blog-app-y464.onrender.com",
+}));
 dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 const app = express();
 app.use(cookieParser());
