@@ -30,12 +30,21 @@ const Single = () => {
     fetchData();
   }, [postId]);
 
+  const handleDelete = async ()=>{
+    try {
+      await axios.delete(`/posts/${postId}`);
+      navigate("/")
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className='single'>
       <div className="content">
         <img src={post?.img} alt="image" />
         <div className="user">
-          <img src="https://images.pexels.com/photos/17286100/pexels-photo-17286100/free-photo-of-sunlit-face-of-man-in-shirt.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="userimage" />
+         {post.userImg && <img src={post.userImg} alt="userimg" /> }
           <div className="info">
             <span>{post.username}</span>
             <p>Posted {moment(post.date).fromNow()}</p>
@@ -45,7 +54,7 @@ const Single = () => {
             <img src={Edit} alt="edit" />
             </Link>
             
-            <img src={Delete} alt="delete" />
+            <img onClick={handleDelete} src={Delete} alt="delete" />
           </div>}
         </div>
         <h1>{post.title}</h1>
