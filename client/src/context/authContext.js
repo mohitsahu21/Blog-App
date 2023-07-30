@@ -1,21 +1,33 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
+
 export const AuthContext = createContext();
 
 export const AuthContexProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
-
+  
+ 
   const login = async (inputs) => {
     const res = await axios.post("/auth/login", inputs);
     setCurrentUser(res.data);
+    if(res.status == 200){
+        return "ok"
+    }
+    else{
+        return "error"
+    }
+    
+   
   };
 
   const logout = async (inputs) => {
     await axios.post("/auth/logout");
     setCurrentUser(null);
+    localStorage.removeItem("user")
+
   };
 
   useEffect(() => {

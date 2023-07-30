@@ -23,8 +23,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(inputs)
-      navigate("/");
+     const res = await login(inputs)
+     if(res == "ok") {navigate("/")};
     } catch (err) {
       setError(err.response.data);
     }

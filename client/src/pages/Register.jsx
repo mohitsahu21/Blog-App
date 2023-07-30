@@ -19,9 +19,16 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/auth/register", inputs);
-      navigate("/login");
-    } catch (err) {
+        
+      const res = await axios.post("/auth/register", inputs);
+       console.log(res)
+       if(res.status == 200){
+        navigate("/login");
+       }
+        
+      }
+
+     catch (err) {
       setError(err.response.data);
     }
   };
@@ -29,9 +36,9 @@ const Register = () => {
       <div className='auth'>
           <h1>Register</h1>
           <form>
-              <input required type='text' name='username' placeholder='Username' onChange={handleChange} />
-              <input required type='email' name='email' placeholder='Email' onChange={handleChange} />
-              <input required type='password' name='password' placeholder='Password' onChange={handleChange}/>
+              <input  type='text' name='username' placeholder='Username' onChange={handleChange} required />
+              <input  type='email' name='email' placeholder='Email' onChange={handleChange}  required/>
+              <input  type='password' name='password' placeholder='Password' onChange={handleChange} required/>
               <button onClick={handleSubmit}>Register</button>
               {err && <p>{err}</p>}
               <span>

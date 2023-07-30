@@ -6,6 +6,17 @@ export const register = (req,res)=>{
     // check user is existing or not
 
     const q = "SELECT * FROM users WHERE email = ? OR username = ?" ;
+          if(!req.body.username){
+            return res.status(409).json("Enter valid username");
+          }
+          let regexEmail=/^\w+([\.-]?\w+)*@gmail\.com$/g;
+
+          if(!regexEmail.test(req.body.email)){
+            return res.status(409).json("Please input valid email");
+          }
+          if(!req.body.password){
+            return res.status(409).json("Enter valid password");
+          }
 
     db.query(q,[req.body.email,req.body.username],(err,data)=>{
         if(err) return res.json(err);
