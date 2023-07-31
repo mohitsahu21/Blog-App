@@ -20,7 +20,7 @@ const Register = () => {
     e.preventDefault();
     try {
         
-      const res = await axios.post("https://blog-app-api-ygiz.onrender.com/auth/register", inputs);
+      const res = await axios.post("https://blog-app-api-ygiz.onrender.com/api/auth/register", inputs);
        console.log(res)
        if(res.status == 200){
         navigate("/login");

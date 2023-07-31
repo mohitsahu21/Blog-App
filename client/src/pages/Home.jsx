@@ -18,7 +18,7 @@ const Home = () => {
     }
     const fetchData = async () => {
       try {
-        const res = await axios.get(`https://blog-app-api-ygiz.onrender.com/posts${cat}`);
+        const res = await axios.get(`https://blog-app-api-ygiz.onrender.com/api/posts${cat}`);
         setPosts(res.data);
       } catch (err) {
         console.log(err);

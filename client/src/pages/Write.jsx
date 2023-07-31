@@ -34,13 +34,13 @@ const Write = () => {
 
     try {
       state
-        ? await axios.put(`https://blog-app-api-ygiz.onrender.com/posts/${state.id}`, {
+        ? await axios.put(`https://blog-app-api-ygiz.onrender.com/api/posts/${state.id}`, {
             title,
             desc: value,
             cat,
             img: file ? imgUrl : state.img,
           })
-        : await axios.post(`https://blog-app-api-ygiz.onrender.com/posts/`, {
+        : await axios.post(`https://blog-app-api-ygiz.onrender.com/api/posts/`, {
             title,
             desc: value,
             cat,
